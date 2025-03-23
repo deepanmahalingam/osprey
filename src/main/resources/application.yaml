@@ -1,0 +1,6 @@
+spring:
+  profile:
+    active: default
+
+env:
+  portfolio-url: "https://www.deepakmahalingam.com"
