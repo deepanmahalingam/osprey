@@ -4,3 +4,4 @@ spring:
 
 env:
   portfolio-url: "https://www.deepakmahalingam.com"
+  takeaway-career-url: 'https://careers.justeattakeaway.com/global/en/home'
