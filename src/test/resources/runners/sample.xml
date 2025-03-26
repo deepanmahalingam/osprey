@@ -5,7 +5,7 @@
     <parameter name="headless" value='false' />
     <test name ="Sample Test">
         <classes>
-            <class name="org.redwind.autotest.osprey.test.Example"/>
+            <class name="org.redwind.autotest.osprey.test.TakeawayCareerTest"/>
         </classes>
     </test>
 </suite>

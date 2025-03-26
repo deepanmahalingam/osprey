@@ -1,7 +1,18 @@
 package org.redwind.autotest.osprey.pages;
 
-public class TakeawayCareerPage {
+public enum TakeawayCareerPage {
 
-    private final String ALLOW_COOKIES = "//button[ppc-content[contains(text(),'Allow')]]";
-    private final String DENY_COOKIES = "//button[ppc-content[contains(text(),'Deny')]]";
+    ALLOW_COOKIES("//button[ppc-content[contains(text(),'Allow')]]"),
+    DENY_COOKIES("//button[ppc-content[contains(text(),'Deny')]]");
+
+    private final String locator;
+
+    TakeawayCareerPage(String locator) {
+        this.locator = locator;
+    }
+
+    public String getLocator() {
+        return locator;
+    }
+
 }
