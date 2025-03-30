@@ -55,13 +55,17 @@ public class DriverFactory {
     }
 
     public void initializeBrowser(String browserName, String headless) {
-        page = getPage(browserName,headless);
+        page = getPage(browserName, headless);
         currentPage.set(page);
     }
 
     public void closeBrowser() {
         currentBrowserContext.get().close();
         playwright.close();
+    }
+
+    public void setPage(Page page) {
+        currentPage.set(page);
     }
 
 
