@@ -5,8 +5,6 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.LoadState;
 import com.microsoft.playwright.options.WaitForSelectorState;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.redwind.autotest.osprey.config.DriverFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -145,6 +143,5 @@ public class BaseActions {
         page = driverFactory.getCurrentPage();
         page.bringToFront();
     }
-
 
 }
