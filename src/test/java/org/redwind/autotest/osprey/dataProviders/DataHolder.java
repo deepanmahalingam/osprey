@@ -21,7 +21,14 @@ public class DataHolder {
     @DataProvider(name = "jobCategoryWidgetsCheck")
     protected Object[][] jobWidgetSearch() {
         return new Object[][]{
-                {new String[]{"Corporate", "Customer Service", "Finance", "Human Resources"}}
+                {"Corporate"},
+                {"Customer Service"},
+                {"Finance"},
+                {"Human Resources"},
+                {"Marketing"},
+                {"Operations & Logistic"},
+                {"Tech & Product"},
+                {"Sales"}
         };
     }
 
