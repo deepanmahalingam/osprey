@@ -1,6 +1,7 @@
 package org.redwind.autotest.osprey.test;
 
 import org.redwind.autotest.osprey.core.BaseTest;
+import org.redwind.autotest.osprey.dataProviders.DataHolder;
 import org.redwind.autotest.osprey.operations.TakeawayCareerOps;
 import org.redwind.autotest.osprey.pages.TakeawayCareerPage;
 import org.redwind.autotest.osprey.utils.BaseActions;
@@ -30,10 +31,10 @@ public class TakeawayCareerTest extends BaseTest {
     }
 
 
-    @Test(description = "Verify that custom job title search and country filter works as expected")
-    public void sampleTest() {
-        String jobTitle = "Test";
-        String country = "Netherlands";
+    @Test(description = "Verify that custom job title search and country filter works as expected",
+            dataProvider = "jobTitleWithCountrySearch",
+            dataProviderClass = DataHolder.class)
+    public void sampleTest(String jobTitle, String country) {
         takeawayCareerOps.searchForCustomJob(jobTitle);
         takeawayCareerOps.verifySearchResultHeading(jobTitle);
         takeawayCareerOps.verifyJobResultsDisplayedGlobally();
@@ -41,27 +42,28 @@ public class TakeawayCareerTest extends BaseTest {
         takeawayCareerOps.verifyJobResultsDisplayedForSpecifiedCountry(country);
     }
 
-    @Test(description = "Check that Job Category dropdown and country filter displays correct data on selection")
-    public void secondTest() {
-        String jobCategory = "Sales";
+    @Test(description = "Check that Job Category dropdown and country filter displays correct data on selection",
+            dataProvider = "jobCategoryDropDownWithCountryFilter",
+            dataProviderClass = DataHolder.class)
+    public void secondTest(String jobCategory, String jobCountry) {
         takeawayCareerOps.selectJobCategoryFromDropdown(jobCategory);
         takeawayCareerOps.validateSelectionOfJobCategoryInFilterSection(jobCategory);
         takeawayCareerOps.validateJobCountMatchesAsPerSelection(jobCategory);
-        String jobCountry = "Germany";
         takeawayCareerOps.filterJobForSpecificCountry(jobCountry);
         takeawayCareerOps.validateJobCountMatchesForCountry(jobCountry);
         takeawayCareerOps.validateSearchResultHasCorrectJobCategory(jobCategory, jobCountry);
     }
 
-    @Test(description = "Verify that Job Category widget displays correct information on selection")
-    public void thirdTest() {
-        String[] jobCategory = {"Corporate", "Customer Service", "Finance", "Human Resources"};
-        for (int i = 0; i < jobCategory.length; i++) {
-            takeawayCareerOps.clickJobCategoryOnWidget(jobCategory[i]);
+    @Test(description = "Verify that Job Category widget displays correct information on selection",
+            dataProvider = "jobCategoryWidgetsCheck",
+            dataProviderClass = DataHolder.class)
+    public void thirdTest(String[] jobCategory) {
+        for (String value : jobCategory) {
+            takeawayCareerOps.clickJobCategoryOnWidget(value);
             takeawayCareerOps.validateResultIsOpenedInNewWindow();
-            takeawayCareerOps.validateSelectionOfJobCategoryInFilterSection(jobCategory[i]);
+            takeawayCareerOps.validateSelectionOfJobCategoryInFilterSection(value);
             takeawayCareerOps.verifyJobResultsDisplayedGlobally();
-            takeawayCareerOps.validateClearAllFilter(jobCategory[i]);
+            takeawayCareerOps.validateClearAllFilter(value);
             baseActions.closeTheTab();
             baseActions.getToFirstTab();
         }
