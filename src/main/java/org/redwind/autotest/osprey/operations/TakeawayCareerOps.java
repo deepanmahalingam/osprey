@@ -1,5 +1,6 @@
 package org.redwind.autotest.osprey.operations;
 
+import io.qameta.allure.Step;
 import org.redwind.autotest.osprey.pages.TakeawayCareerPage;
 import org.redwind.autotest.osprey.utils.BaseActions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,11 +57,13 @@ public class TakeawayCareerOps {
         return category.trim();
     }
 
+    @Step("Search for Custom Job")
     public void searchForCustomJob(String jobTitle) {
         baseActions.enterText(TakeawayCareerPage.SEARCH_JOB_INPUT_FIELD, jobTitle);
         baseActions.clickOnWebElement(TakeawayCareerPage.SEARCH_BUTTON);
     }
 
+    @Step("Verify heading of search result")
     public void verifySearchResultHeading(String jobTitle) {
         baseActions.scrollToWebElement(TakeawayCareerPage.SEARCH_RESULT_AREA);
         String expectedText = "Showing Search results for " + "\"" + jobTitle + "\"";
@@ -68,11 +71,13 @@ public class TakeawayCareerOps {
         Assert.assertEquals(actualText, expectedText);
     }
 
+    @Step("Verify resulted jobs are displayed globally")
     public void verifyJobResultsDisplayedGlobally() {
         HashSet<String> setOfCountries = getSetOfCountriesInSearchResult();
         Assert.assertTrue(setOfCountries.size() > 1, "Job from different countries are not shown in the result");
     }
 
+    @Step("Filter job for specific country")
     public void filterJobForSpecificCountry(String country) {
         baseActions.scrollToWebElement(TakeawayCareerPage.REFINE_YOUR_SEARCH);
         baseActions.clickOnWebElement(TakeawayCareerPage.filterBy("Country"));
@@ -84,12 +89,14 @@ public class TakeawayCareerOps {
         Assert.assertTrue(flag, "Country is not selected");
     }
 
+    @Step("Verify resulted job is displayed for specific country")
     public void verifyJobResultsDisplayedForSpecifiedCountry(String country) {
         baseActions.scrollToWebElement(TakeawayCareerPage.SEARCH_RESULT_AREA);
         HashSet<String> setOfCountries1 = getSetOfCountriesInSearchResult();
         Assert.assertTrue(setOfCountries1.size() == 1 && setOfCountries1.toString().contains(country), "Job from different countries are shown in the result");
     }
 
+    @Step("Select the job category from Dropdown")
     public void selectJobCategoryFromDropdown(String jobCategory) {
         baseActions.clickOnWebElement(TakeawayCareerPage.SEARCH_JOB_INPUT_FIELD);
         baseActions.scrollToWebElement(TakeawayCareerPage.JOB_CATEGORY_DROPDOWN(jobCategory));
@@ -97,6 +104,7 @@ public class TakeawayCareerOps {
         baseActions.clickOnWebElement(TakeawayCareerPage.JOB_CATEGORY_DROPDOWN(jobCategory));
     }
 
+    @Step("Validate job category filter automatically selected")
     public void validateSelectionOfJobCategoryInFilterSection(String jobCategory) {
         baseActions.scrollToWebElement(TakeawayCareerPage.REFINE_YOUR_SEARCH);
         if (baseActions.getAttribute(TakeawayCareerPage.filterBy("Category"), "aria-expanded").contains("false")) {
@@ -107,6 +115,7 @@ public class TakeawayCareerOps {
         Assert.assertTrue(flag, "Job category is not selected automatically in search section");
     }
 
+    @Step("Validate Job count matches")
     public void validateJobCountMatchesAsPerSelection(String jobCategory) {
         String actualJobCountInFilter = baseActions.getText(TakeawayCareerPage.JOB_COUNT_IN_FILTER(jobCategory));
         Assert.assertTrue(actualJobCountInFilter.contains(jobCount), "Job count does not matched in filter");
@@ -114,6 +123,7 @@ public class TakeawayCareerOps {
         Assert.assertTrue(actualJobCountInList.contains(jobCount), "Job count does not matched in List");
     }
 
+    @Step("Validate job count matches for the country")
     public void validateJobCountMatchesForCountry(String country) {
         baseActions.scrollToWebElement(TakeawayCareerPage.JOB_COUNT_IN_FILTER(country));
         jobCountForCountry = baseActions.getText(TakeawayCareerPage.JOB_COUNT_IN_FILTER(country));
@@ -125,6 +135,7 @@ public class TakeawayCareerOps {
         Assert.assertTrue(jobCountForCountry.replace("jobs", "").trim().contains(jobCountInList.replace("jobs", "").trim()), "Search result does not matches the country count");
     }
 
+    @Step("Validate search result has correct job category")
     public void validateSearchResultHasCorrectJobCategory(String jobCategory, String country) {
         baseActions.scrollToWebElement(TakeawayCareerPage.SEARCH_RESULT_AREA);
         HashSet<String> setOfJobCategories = new HashSet<>();
@@ -149,6 +160,7 @@ public class TakeawayCareerOps {
         Assert.assertTrue(jobCountForCountry.contains(Integer.toString(jobCountInResult)), "Resulted job Count for the country do not match");
     }
 
+    @Step("Click job category on widgets")
     public void clickJobCategoryOnWidget(String jobCategory) {
         baseActions.scrollToWebElement(TakeawayCareerPage.JOB_CATEGORY_WIDGET_HEADING);
         baseActions.scrollToWebElement(TakeawayCareerPage.JOB_CATEGORY_WIDGET(jobCategory));
@@ -160,6 +172,7 @@ public class TakeawayCareerOps {
         baseActions.switchToNewTab();
     }
 
+    @Step("Validate widget is opened in new window")
     public void validateResultIsOpenedInNewWindow() {
         String newPageTitle = baseActions.getPageTitle();
         String newUrl = baseActions.getPageURL();
@@ -167,6 +180,7 @@ public class TakeawayCareerOps {
         Assert.assertNotEquals(oldUrl, newUrl, "Search result is not opened in new tab");
     }
 
+    @Step("Validate clear all filter")
     public void validateClearAllFilter(String jobCategory) {
         baseActions.waitForElementToBeVisible(TakeawayCareerPage.REFINE_YOUR_SEARCH);
         baseActions.scrollToWebElement(TakeawayCareerPage.REFINE_YOUR_SEARCH);

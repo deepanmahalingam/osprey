@@ -1,6 +1,7 @@
 package org.redwind.autotest.osprey.test;
 
 import com.microsoft.playwright.TimeoutError;
+import io.qameta.allure.Description;
 import org.redwind.autotest.osprey.core.BaseTest;
 import org.redwind.autotest.osprey.dataProviders.DataHolder;
 import org.redwind.autotest.osprey.operations.TakeawayCareerOps;
@@ -33,9 +34,9 @@ public class TakeawayCareerTest extends BaseTest {
     }
 
 
-    @Test(description = "Verify that custom job title search and country filter works as expected",
-            dataProvider = "jobTitleWithCountrySearch",
+    @Test(dataProvider = "jobTitleWithCountrySearch",
             dataProviderClass = DataHolder.class)
+    @Description("Verify that custom job title search and country filter works as expected")
     public void validateJobTitleSearch(String jobTitle, String country) {
         takeawayCareerOps.searchForCustomJob(jobTitle);
         takeawayCareerOps.verifySearchResultHeading(jobTitle);
@@ -44,9 +45,9 @@ public class TakeawayCareerTest extends BaseTest {
         takeawayCareerOps.verifyJobResultsDisplayedForSpecifiedCountry(country);
     }
 
-    @Test(description = "Check that Job Category dropdown and country filter displays correct data on selection",
-            dataProvider = "jobCategoryDropDownWithCountryFilter",
+    @Test(dataProvider = "jobCategoryDropDownWithCountryFilter",
             dataProviderClass = DataHolder.class)
+    @Description("Check that Job Category dropdown and country filter displays correct data on selection")
     public void validateJobCategoryDropdown(String jobCategory, String jobCountry) {
         takeawayCareerOps.selectJobCategoryFromDropdown(jobCategory);
         takeawayCareerOps.validateSelectionOfJobCategoryInFilterSection(jobCategory);
@@ -56,9 +57,9 @@ public class TakeawayCareerTest extends BaseTest {
         takeawayCareerOps.validateSearchResultHasCorrectJobCategory(jobCategory, jobCountry);
     }
 
-    @Test(description = "Verify that Job Category widget displays correct information on selection",
-            dataProvider = "jobCategoryWidgetsCheck",
+    @Test(dataProvider = "jobCategoryWidgetsCheck",
             dataProviderClass = DataHolder.class)
+    @Description("Verify that Job Category widget displays correct information on selection")
     public void validateJobCategoryWidgets(String jobCategoryWidget) {
         try {
             takeawayCareerOps.clickJobCategoryOnWidget(jobCategoryWidget);
