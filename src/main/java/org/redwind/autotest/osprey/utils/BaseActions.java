@@ -5,10 +5,19 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.LoadState;
 import com.microsoft.playwright.options.WaitForSelectorState;
+import io.qameta.allure.Allure;
 import org.redwind.autotest.osprey.config.DriverFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
@@ -142,6 +151,27 @@ public class BaseActions {
         driverFactory.setPage(pages.get(0));
         page = driverFactory.getCurrentPage();
         page.bringToFront();
+    }
+
+    public void takeFullPageScreenshot() throws IOException {
+        page = driverFactory.getCurrentPage();
+        byte[] screenshot = page.screenshot(new Page.ScreenshotOptions().setFullPage(true));
+        Allure.addAttachment("Failure screenshot for full screen", new ByteArrayInputStream(screenshot));
+        String screenshotName = Instant.now() + ".png";
+        // Save the screenshot to the Screenshots folder.
+        Path screenshotPath = Paths.get(System.getProperty("user.dir"), "screenshots").resolve(screenshotName);
+        Files.write(screenshotPath, screenshot);
+    }
+
+    public void takeScreenshot() throws IOException {
+        page = driverFactory.getCurrentPage();
+        byte[] screenshot = page.screenshot();
+        Allure.addAttachment("Failure screenshot", new ByteArrayInputStream(screenshot));
+        String currentTimestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss"));
+        String screenshotName = currentTimestamp + ".png";
+        // Save the screenshot to the Screenshots folder.
+        Path screenshotPath = Paths.get(System.getProperty("user.dir"), "screenshots").resolve(screenshotName);
+        Files.write(screenshotPath, screenshot);
     }
 
 }

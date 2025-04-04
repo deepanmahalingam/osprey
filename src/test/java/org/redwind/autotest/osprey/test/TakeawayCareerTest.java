@@ -10,9 +10,12 @@ import org.redwind.autotest.osprey.utils.BaseActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
 
 public class TakeawayCareerTest extends BaseTest {
 
@@ -76,7 +79,9 @@ public class TakeawayCareerTest extends BaseTest {
     }
 
     @AfterMethod
-    public void afterMethod() {
+    public void afterMethod(ITestResult testResult) throws IOException {
+        if(testResult.getStatus() == ITestResult.FAILURE || testResult.getStatus() == ITestResult.SKIP)
+            baseActions.takeFullPageScreenshot();
         baseActions.openWebPage(takeawayCareerPageURL);
     }
 
