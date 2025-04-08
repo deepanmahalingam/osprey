@@ -2,6 +2,8 @@
 
 This framework helps to automate UI tests to ensure quality and stability in the application. Osprey framework is using Java, Microsoft Playwright, TestNG and Maven.
 
+![Osprey](image/osprey.png)
+
 ## Introduction
 
 TestNG is a testing framework which provide powerful feature for organizing and executing tests efficiently. I have used Microsoft Playwright, powerful tool which enables end to end testing for web apps.
