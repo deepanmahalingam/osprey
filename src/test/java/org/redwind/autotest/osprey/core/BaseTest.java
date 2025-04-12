@@ -1,15 +1,15 @@
 package org.redwind.autotest.osprey.core;
 
-import org.redwind.autotest.osprey.PlaywrightApplication;
 import org.redwind.autotest.osprey.config.DriverFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
 @SpringBootTest
-@ContextConfiguration(classes = {PlaywrightApplication.class})
 public class BaseTest extends AbstractTestNGSpringContextTests {
     @Autowired
     DriverFactory driverFactory;

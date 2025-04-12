@@ -7,10 +7,12 @@ import org.springframework.stereotype.Component;
 public class DriverFactory {
     protected static ThreadLocal<Page> currentPage = new ThreadLocal<>();
     protected static ThreadLocal<BrowserContext> currentBrowserContext = new ThreadLocal<>();
+    protected static ThreadLocal<APIRequestContext> currentAPIRequestContext = new ThreadLocal<>();
     protected Page page = null;
     protected Playwright playwright = null;
     protected Browser browser = null;
     protected BrowserContext browserContext = null;
+    protected APIRequestContext apiRequestContext = null;
 
     public Page getCurrentPage() {
         page = currentPage.get();
@@ -66,6 +68,21 @@ public class DriverFactory {
 
     public void setPage(Page page) {
         currentPage.set(page);
+    }
+
+    public APIRequestContext getAPIRequest() {
+        playwright = Playwright.create();
+        apiRequestContext = playwright.request().newContext();
+        return apiRequestContext;
+    }
+
+    public void setAPIRequest(APIRequestContext apiRequestContext) {
+        currentAPIRequestContext.set(apiRequestContext);
+    }
+
+    public void initializeApiRequest() {
+        apiRequestContext = getAPIRequest();
+        setAPIRequest(apiRequestContext);
     }
 
 
