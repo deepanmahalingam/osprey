@@ -1,6 +1,6 @@
 # OSPREY Framework
 
-This framework helps to automate UI tests to ensure quality and stability in the application. Osprey framework is using Java, Microsoft Playwright, TestNG and Maven.
+This framework helps to automate UI and API tests to ensure quality and stability in the application. Osprey framework is using Java, Microsoft Playwright, TestNG and Maven.
 
 ![Osprey](image/osprey.png)
 
@@ -11,6 +11,7 @@ TestNG is a testing framework which provide powerful feature for organizing and 
 ## Features
 
  - Cross-browser testing support
+ - Test Backend services to maintain stability
  - Page Object model (POM) as a design pattern
  - Spring Boot Integration
  - Detailed HTML report via Allure Report
