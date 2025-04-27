@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="Takeaway Career Test Suite" >
-    <parameter name="browserName" value="chrome"/>
-    <parameter name="headless" value='false' />
-    <test name ="Takeaway Career Test">
-        <classes>
-            <class name="org.redwind.autotest.osprey.test.TakeawayCareerTest">
-                <methods>
-                    <exclude name="validateJobCategoryWidgets"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
+<suite name="Osprey example test suite">
+    <suite-files>
+        <suite-file path="guiTestRunner.xml"/>
+        <suite-file path="apiTestRunner.xml"/>
+    </suite-files>
 </suite>
