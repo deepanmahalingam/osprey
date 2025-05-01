@@ -25,7 +25,7 @@ public class CRUDTest extends AbstractTestNGSpringContextTests {
         driverFactory.initializeApiRequest();
     }
 
-    @Test
+    @Test(groups = {"api_Test"})
     @Description("Test covers Create, Read, Update and Delete operations on environment")
     public void test() throws IOException {
         crudOps.generateAccessToken();

@@ -38,7 +38,7 @@ public class TakeawayCareerTest extends BaseTest {
 
 
     @Test(dataProvider = "jobTitleWithCountrySearch",
-            dataProviderClass = DataHolder.class)
+            dataProviderClass = DataHolder.class, groups = {"ui_Test", "custom search"})
     @Description("Verify that custom job title search and country filter works as expected")
     public void validateJobTitleSearch(String jobTitle, String country) {
         takeawayCareerOps.searchForCustomJob(jobTitle);
@@ -49,7 +49,7 @@ public class TakeawayCareerTest extends BaseTest {
     }
 
     @Test(dataProvider = "jobCategoryDropDownWithCountryFilter",
-            dataProviderClass = DataHolder.class)
+            dataProviderClass = DataHolder.class, groups = {"ui_Test", "custom search"})
     @Description("Check that Job Category dropdown and country filter displays correct data on selection")
     public void validateJobCategoryDropdown(String jobCategory, String jobCountry) {
         takeawayCareerOps.selectJobCategoryFromDropdown(jobCategory);
@@ -61,7 +61,7 @@ public class TakeawayCareerTest extends BaseTest {
     }
 
     @Test(dataProvider = "jobCategoryWidgetsCheck",
-            dataProviderClass = DataHolder.class)
+            dataProviderClass = DataHolder.class, groups = {"ui_Test", "widgets"})
     @Description("Verify that Job Category widget displays correct information on selection")
     public void validateJobCategoryWidgets(String jobCategoryWidget) {
         try {
@@ -80,7 +80,7 @@ public class TakeawayCareerTest extends BaseTest {
 
     @AfterMethod
     public void afterMethod(ITestResult testResult) throws IOException {
-        if(testResult.getStatus() == ITestResult.FAILURE || testResult.getStatus() == ITestResult.SKIP)
+        if (testResult.getStatus() == ITestResult.FAILURE || testResult.getStatus() == ITestResult.SKIP)
             baseActions.takeFullPageScreenshot();
         baseActions.openWebPage(takeawayCareerPageURL);
     }
