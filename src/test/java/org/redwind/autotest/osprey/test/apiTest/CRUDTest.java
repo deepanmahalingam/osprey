@@ -27,7 +27,7 @@ public class CRUDTest extends AbstractTestNGSpringContextTests {
 
     @Test(groups = {"api_Test"})
     @Description("Test covers Create, Read, Update and Delete operations on environment")
-    public void test() throws IOException {
+    public void test_CRUDOps() throws IOException {
         crudOps.generateAccessToken();
         crudOps.createNewBooking();
         crudOps.validateNewBookingIsCreated();

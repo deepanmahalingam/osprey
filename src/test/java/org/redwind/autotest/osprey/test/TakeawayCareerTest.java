@@ -30,7 +30,7 @@ public class TakeawayCareerTest extends BaseTest {
     TakeawayCareerOps takeawayCareerOps;
 
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void testEntry() {
         baseActions.openWebPage(takeawayCareerPageURL);
         baseActions.clickOnWebElement(TakeawayCareerPage.ALLOW_COOKIES);
@@ -78,7 +78,7 @@ public class TakeawayCareerTest extends BaseTest {
         }
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void afterMethod(ITestResult testResult) throws IOException {
         if (testResult.getStatus() == ITestResult.FAILURE || testResult.getStatus() == ITestResult.SKIP)
             baseActions.takeFullPageScreenshot();
