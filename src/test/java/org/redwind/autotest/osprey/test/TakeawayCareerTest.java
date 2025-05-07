@@ -38,7 +38,7 @@ public class TakeawayCareerTest extends BaseTest {
 
 
     @Test(dataProvider = "jobTitleWithCountrySearch",
-            dataProviderClass = DataHolder.class, groups = {"ui_Test", "custom search"})
+            dataProviderClass = DataHolder.class, groups = {"ui_Test", "custom_search"})
     @Description("Verify that custom job title search and country filter works as expected")
     public void validateJobTitleSearch(String jobTitle, String country) {
         takeawayCareerOps.searchForCustomJob(jobTitle);
@@ -49,7 +49,7 @@ public class TakeawayCareerTest extends BaseTest {
     }
 
     @Test(dataProvider = "jobCategoryDropDownWithCountryFilter",
-            dataProviderClass = DataHolder.class, groups = {"ui_Test", "custom search"})
+            dataProviderClass = DataHolder.class, groups = {"ui_Test", "custom_search"})
     @Description("Check that Job Category dropdown and country filter displays correct data on selection")
     public void validateJobCategoryDropdown(String jobCategory, String jobCountry) {
         takeawayCareerOps.selectJobCategoryFromDropdown(jobCategory);
