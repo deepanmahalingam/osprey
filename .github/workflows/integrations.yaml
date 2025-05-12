@@ -56,12 +56,12 @@ jobs:
         run: |
           mvn test -Dbrowser=${{ inputs.browser }} -Dheadless=${{ inputs.headless}} -Dgroups={{ inputs.tags}}
 
-#      - name: Upload Test Results
-#        if: always()
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: reports
-#          path: reports/
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: reports/
 #  deploy-reports:
 #    environment:
 #      name: github-pages
