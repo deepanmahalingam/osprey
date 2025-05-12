@@ -1,0 +1,91 @@
+name: Integration Test
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: 'browser'
+        type: choice
+        required: true
+        options:
+          - chrome
+          - firefox
+      headless:
+        description: 'headless'
+        type: boolean
+      tags:
+        description: 'groups'
+        type: string
+
+jobs:
+  integration-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+
+#      - name: Set up Firefox
+#        uses: browser-actions/setup-firefox@v1
+#        with:
+#          firefox-version: latest
+#
+#      - name: Set up Chrome
+#        uses: browser-actions/setup-chrome@v1
+#        with:
+#          chrome-version: latest # Optional: Install ChromeDriver
+
+      - name: Cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Run Tests
+        run: |
+          mvn test -Dbrowser=${{ inputs.browser }} -Dheadless=${{ inputs.headless}} -Dgroups={{ inputs.tags}}
+
+#      - name: Upload Test Results
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: reports
+#          path: reports/
+#  deploy-reports:
+#    environment:
+#      name: github-pages
+#      url: ${{ steps.deployment.outputs.page_url }}
+#    runs-on: ubuntu-latest
+#    permissions:
+#      id-token: write
+#      pages: write
+#      contents: read
+#    needs: integration-test
+#    steps:
+#      - name: "Checkout Repository"
+#        uses: actions/checkout@v4
+#      - name: "Download Extent report"
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: reports
+#          path: .
+#      - name: "Setup Pages"
+#        uses: actions/configure-pages@v5
+#      - name: "Upload Page Artifact"
+#        uses: actions/upload-pages-artifact@v3
+#        with:
+#          path: .
+#      - name: "Deploy to Github pages"
+#        id: deployment
+#        uses: actions/deploy-pages@v4
