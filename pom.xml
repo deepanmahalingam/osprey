@@ -97,7 +97,6 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                     <suiteXmlFiles>src/test/resources/runners/testRunner.xml</suiteXmlFiles>
-                    <groups>${groups}</groups>
                 </configuration>
                 <dependencies>
                     <dependency>

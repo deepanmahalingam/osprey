@@ -54,7 +54,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          mvn test -Dbrowser=${{ inputs.browser }} -Dheadless=${{ inputs.headless }} -Dgroups={{ inputs.tags }}
+          mvn test -Dbrowser=${{ inputs.browser }} -Dheadless=${{ inputs.headless }} -Dgroups=${{ inputs.tags }}
 
       - name: Upload Test Results
         if: always()
