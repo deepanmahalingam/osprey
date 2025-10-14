@@ -174,4 +174,19 @@ public class BaseActions {
         Files.write(screenshotPath, screenshot);
     }
 
+    public void waitForTableStablizer(String selector) {
+        page = driverFactory.getCurrentPage();
+        Locator tableRows = page.locator(selector);
+        String previousHTML = "";
+        String currentHTML = "";
+        long startTime = System.currentTimeMillis();
+
+        do {
+            previousHTML = tableRows.innerHTML();
+            page.waitForTimeout(500); // wait half a second
+            currentHTML = tableRows.innerHTML();
+        } while (!previousHTML.equals(currentHTML)
+                && (System.currentTimeMillis() - startTime) < 3000);
+    }
+
 }

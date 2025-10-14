@@ -5,6 +5,7 @@ spring:
 env:
   portfolio-url: "https://www.deepakmahalingam.com"
   takeaway-career-url: 'https://careers.justeattakeaway.com/global/en/home'
+  osapiens-career-url: 'https://careers.osapiens.com/'
   herokuApp-url: 'https://restful-booker.herokuapp.com/'
   heroku-Authentication: 'auth'
   heroku-Booking: 'booking/'
