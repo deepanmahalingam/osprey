@@ -29,11 +29,14 @@ public class TakeawayCareerTest extends BaseTest {
     @Autowired
     TakeawayCareerOps takeawayCareerOps;
 
+    @Autowired
+    TakeawayCareerPage takeawayCareerPage;
+
 
     @BeforeClass(alwaysRun = true)
     public void testEntry() {
         baseActions.openWebPage(takeawayCareerPageURL);
-        baseActions.clickOnWebElement(TakeawayCareerPage.ALLOW_COOKIES);
+        baseActions.clickOnWebElement(takeawayCareerPage.allowCookies());
     }
 
 

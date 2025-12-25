@@ -32,6 +32,10 @@ public class BaseActions {
         page.click(selector);
     }
 
+    public void clickOnWebElement(Locator locator) {
+        locator.click();
+    }
+
     public void openWebPage(String url) {
         page = driverFactory.getCurrentPage();
         page.navigate(url);
@@ -40,6 +44,10 @@ public class BaseActions {
     public void enterText(String selector, String value) {
         page = driverFactory.getCurrentPage();
         page.fill(selector, value);
+    }
+
+    public void enterText(Locator locator, String value) {
+        locator.fill(value);
     }
 
     public Boolean isElementPresent(String selector) {
@@ -55,6 +63,10 @@ public class BaseActions {
         locator.scrollIntoViewIfNeeded();
     }
 
+    public void scrollToWebElement(Locator locator) {
+        locator.scrollIntoViewIfNeeded();
+    }
+
     public String getText(String selector) {
         page = driverFactory.getCurrentPage();
         String text = "";
@@ -62,10 +74,22 @@ public class BaseActions {
         return text;
     }
 
+    public String getText(Locator locator) {
+        String text = "";
+        text = locator.textContent();
+        return text;
+    }
+
     public String getAttribute(String selector, String parameterName) {
         page = driverFactory.getCurrentPage();
         String value = "";
         value = page.getAttribute(selector, parameterName);
+        return value;
+    }
+
+    public String getAttribute(Locator locator, String parameterName) {
+        String value = "";
+        value = locator.getAttribute(parameterName);
         return value;
     }
 
@@ -90,6 +114,11 @@ public class BaseActions {
         return locator.count();
     }
 
+    public Integer getElementsCount(Locator locator) {
+        return locator.count();
+    }
+
+
     public List<String> getListOfAllTextFromElements(String selector) {
         List<String> textFromElements;
         page = driverFactory.getCurrentPage();
@@ -97,6 +126,13 @@ public class BaseActions {
         textFromElements = locator.allTextContents();
         return textFromElements;
     }
+
+    public List<String> getListOfAllTextFromElements(Locator locator) {
+        List<String> textFromElements;
+        textFromElements = locator.allTextContents();
+        return textFromElements;
+    }
+
 
     public void waitForPageLoad() {
         page = driverFactory.getCurrentPage();
@@ -108,6 +144,11 @@ public class BaseActions {
         return page.isChecked(selector);
     }
 
+    public boolean isElementChecked(Locator locator) {
+        return locator.isChecked();
+    }
+
+
     public void waitForTimeout(double seconds) {
         page = driverFactory.getCurrentPage();
         page.waitForTimeout(seconds);
@@ -118,9 +159,18 @@ public class BaseActions {
         page.waitForSelector(selector);
     }
 
+    public void waitForElement(Locator locator) {
+        locator.waitFor();
+    }
+
+
     public void waitForElementToBeVisible(String selector) {
         page = driverFactory.getCurrentPage();
         page.locator(selector).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
+    }
+
+    public void waitForElementToBeVisible(Locator locator) {
+        locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
     }
 
     public void waitForElementWithIncreasedTimeOut(String selector, double seconds) {
