@@ -112,13 +112,13 @@ public class TakeawayCareerOps {
             baseActions.clickOnWebElement(takeawayCareerPage.filterHeading("Category"));
         }
         baseActions.scrollToWebElement(takeawayCareerPage.filterValue(jobCategory));
-        boolean flag = baseActions.isElementChecked(TakeawayCareerPage.CHECKBOX_FOR_FILTER(jobCategory));
+        boolean flag = baseActions.isElementChecked(takeawayCareerPage.filterValue(jobCategory));
         Assert.assertTrue(flag, "Job category is not selected automatically in search section");
     }
 
     @Step("Validate Job count matches")
     public void validateJobCountMatchesAsPerSelection(String jobCategory) {
-        String actualJobCountInFilter = baseActions.getText(TakeawayCareerPage.JOB_COUNT_IN_FILTER(jobCategory));
+        String actualJobCountInFilter = baseActions.getText(takeawayCareerPage.filterValue(jobCategory));
         Assert.assertTrue(jobCount.contains(actualJobCountInFilter), "Job count does not matched in filter");
         String actualJobCountInList = baseActions.getText(takeawayCareerPage.jobListCount());
         Assert.assertTrue(jobCount.contains(actualJobCountInList), "Job count does not matched in List");
@@ -126,11 +126,8 @@ public class TakeawayCareerOps {
 
     @Step("Validate job count matches for the country")
     public void validateJobCountMatchesForCountry(String country) {
-        baseActions.scrollToWebElement(TakeawayCareerPage.JOB_COUNT_IN_FILTER(country));
-        jobCountForCountry = baseActions.getText(TakeawayCareerPage.JOB_COUNT_IN_FILTER(country));
-        jobCountForCountry = jobCountForCountry.replace("(", "");
-        jobCountForCountry = jobCountForCountry.replace(")", "");
-        jobCountForCountry = jobCountForCountry.trim();
+        baseActions.scrollToWebElement(takeawayCareerPage.filterValue(country));
+        jobCountForCountry = baseActions.getAttribute(takeawayCareerPage.filterValue(country), "data-ph-at-count");
         baseActions.scrollToWebElement(takeawayCareerPage.jobListCount());
         String jobCountInList = baseActions.getText(takeawayCareerPage.jobListCount());
         Assert.assertTrue(jobCountForCountry.replace("jobs", "").trim().contains(jobCountInList.replace("jobs", "").trim()), "Search result does not matches the country count");
@@ -146,8 +143,6 @@ public class TakeawayCareerOps {
             List<String> listOfJobSearched = baseActions.getListOfAllTextFromElements(takeawayCareerPage.searchedJoblist());
             for (int j = 1; j <= listOfJobSearched.size(); j++) {
                 setOfJobCategories.add(getJobCategoryFromSearchedJob(takeawayCareerPage.searchResultJobCatagory().nth(j)));
-                // setOfJobCategories.add(getJobCategoryFromSearchedJob(TakeawayCareerPage.getJobCategoryFromSearchResult(j)));
-                // setOfLocation.add(getCountryNameFromSearchedJob(baseActions.getListOfAllTextFromElements(TakeawayCareerPage.getJobLocationFromSearchResult(j)).toString()));
                 setOfLocation.add(getCountryNameFromSearchedJob(baseActions.getListOfAllTextFromElements(takeawayCareerPage.searchResultJobLocation().nth(j)).toString()));
                 jobCountInResult += 1;
             }
@@ -166,11 +161,11 @@ public class TakeawayCareerOps {
     @Step("Click job category on widgets")
     public void clickJobCategoryOnWidget(String jobCategory) {
         baseActions.scrollToWebElement(takeawayCareerPage.jobCategoryWidgetHeading());
-        baseActions.scrollToWebElement(TakeawayCareerPage.JOB_CATEGORY_WIDGET(jobCategory));
+        baseActions.scrollToWebElement(takeawayCareerPage.jobCategoryWidget(jobCategory));
         oldPageTitle = baseActions.getPageTitle();
         oldUrl = baseActions.getPageURL();
-        baseActions.scrollToWebElement(TakeawayCareerPage.JOB_CATEGORY_WIDGET(jobCategory));
-        baseActions.clickOnWebElement(TakeawayCareerPage.JOB_CATEGORY_WIDGET(jobCategory));
+        baseActions.scrollToWebElement(takeawayCareerPage.jobCategoryWidget(jobCategory));
+        baseActions.clickOnWebElement(takeawayCareerPage.jobCategoryWidget(jobCategory));
         baseActions.waitForTimeout(3000);
         baseActions.switchToNewTab();
     }
@@ -194,7 +189,7 @@ public class TakeawayCareerOps {
         if (baseActions.getAttribute(takeawayCareerPage.filterHeading("Category"), "aria-expanded").contains("false")) {
             baseActions.clickOnWebElement(takeawayCareerPage.filterHeading("Category"));
         }
-        boolean flag = baseActions.isElementChecked(TakeawayCareerPage.CHECKBOX_FOR_FILTER(jobCategory));
+        boolean flag = baseActions.isElementChecked(takeawayCareerPage.filterValue(jobCategory));
         Assert.assertFalse(flag, "Job category is selected after clicking clear all filter");
     }
 

@@ -16,8 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
@@ -50,13 +48,6 @@ public class BaseActions {
         locator.fill(value);
     }
 
-    public Boolean isElementPresent(String selector) {
-        page = driverFactory.getCurrentPage();
-        boolean flag = false;
-        flag = page.isVisible(selector);
-        return flag;
-    }
-
     public void scrollToWebElement(String selector) {
         page = driverFactory.getCurrentPage();
         Locator locator = page.locator(selector);
@@ -80,12 +71,6 @@ public class BaseActions {
         return text;
     }
 
-    public String getAttribute(String selector, String parameterName) {
-        page = driverFactory.getCurrentPage();
-        String value = "";
-        value = page.getAttribute(selector, parameterName);
-        return value;
-    }
 
     public String getAttribute(Locator locator, String parameterName) {
         String value = "";
@@ -103,10 +88,6 @@ public class BaseActions {
         return page.url();
     }
 
-    public void refreshPage() {
-        page = driverFactory.getCurrentPage();
-        page.reload();
-    }
 
     public Integer getElementsCount(String selector) {
         page = driverFactory.getCurrentPage();
@@ -118,14 +99,6 @@ public class BaseActions {
         return locator.count();
     }
 
-
-    public List<String> getListOfAllTextFromElements(String selector) {
-        List<String> textFromElements;
-        page = driverFactory.getCurrentPage();
-        Locator locator = page.locator(selector);
-        textFromElements = locator.allTextContents();
-        return textFromElements;
-    }
 
     public List<String> getListOfAllTextFromElements(Locator locator) {
         List<String> textFromElements;
@@ -139,10 +112,6 @@ public class BaseActions {
         page.waitForLoadState(LoadState.DOMCONTENTLOADED);
     }
 
-    public boolean isElementChecked(String selector) {
-        page = driverFactory.getCurrentPage();
-        return page.isChecked(selector);
-    }
 
     public boolean isElementChecked(Locator locator) {
         return locator.isChecked();
@@ -154,29 +123,16 @@ public class BaseActions {
         page.waitForTimeout(seconds);
     }
 
-    public void waitForElement(String selector) {
-        page = driverFactory.getCurrentPage();
-        page.waitForSelector(selector);
-    }
 
     public void waitForElement(Locator locator) {
         locator.waitFor();
     }
 
 
-    public void waitForElementToBeVisible(String selector) {
-        page = driverFactory.getCurrentPage();
-        page.locator(selector).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
-    }
-
     public void waitForElementToBeVisible(Locator locator) {
         locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
     }
 
-    public void waitForElementWithIncreasedTimeOut(String selector, double seconds) {
-        page = driverFactory.getCurrentPage();
-        page.locator(selector).waitFor(new Locator.WaitForOptions().setTimeout(seconds));
-    }
 
     public void switchToNewTab() {
         browserContext = driverFactory.getBrowserContext();
@@ -213,16 +169,6 @@ public class BaseActions {
         Files.write(screenshotPath, screenshot);
     }
 
-    public void takeScreenshot() throws IOException {
-        page = driverFactory.getCurrentPage();
-        byte[] screenshot = page.screenshot();
-        Allure.addAttachment("Failure screenshot", new ByteArrayInputStream(screenshot));
-        String currentTimestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss"));
-        String screenshotName = currentTimestamp + ".png";
-        // Save the screenshot to the Screenshots folder.
-        Path screenshotPath = Paths.get(System.getProperty("user.dir"), "screenshots").resolve(screenshotName);
-        Files.write(screenshotPath, screenshot);
-    }
 
     public void waitForTableStablizer(String selector) {
         page = driverFactory.getCurrentPage();
